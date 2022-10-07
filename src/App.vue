@@ -1,14 +1,35 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div>
+    <nav-bar v-if="store.state.auth" :username="store.state.user.username"/>
+    <div class="container">
+      <router-view/>
+    </div>
+  </div>
 </template>
 
+<script setup>
+import {onMounted, ref} from "vue";
+import {useStore} from "vuex";
+import NavBar from "@/components/NavBar";
+import axios from "axios";
+
+ const store = useStore()
+ onMounted(() => {
+   store.dispatch('setAuthToken', localStorage.getItem('auth'))
+   store.dispatch('setUserDetail', JSON.parse(localStorage.getItem('user')))
+   axios.get("https://dummyjson.com/posts")
+       .then(res => {
+         console.log(res.data.posts)
+         store.dispatch('setAllPosts', res.data.posts)
+       })
+ })
+
+</script>
+
 <style lang="scss">
+@import "./app.scss";
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -23,7 +44,7 @@ nav {
     color: #2c3e50;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: #42b983 !important;
     }
   }
 }
