@@ -4,7 +4,10 @@ export default createStore({
   state: {
     auth: null,
     user: null,
-    posts: null
+    posts: null,
+    users: null,
+    message: null,
+    comments: null,
   },
   getters: {
   },
@@ -24,6 +27,14 @@ export default createStore({
 
     setPosts(state, posts){
       state.posts = posts
+    },
+
+    setUsers(state, users){
+      state.users = users
+    },
+
+    setComments(state, comments){
+      state.comments = comments
     }
   },
   actions: {
@@ -38,6 +49,12 @@ export default createStore({
     },
     setAllPosts({commit}, posts){
       commit('setPosts', posts)
+    },
+    setAllUsers({commit}, users){
+      commit('setUsers', users)
+    },
+    setAllComments({commit}, comments){
+      commit('setComments', comments)
     }
   },
   modules: {

@@ -22,6 +22,20 @@ import axios from "axios";
          console.log(res.data.posts)
          store.dispatch('setAllPosts', res.data.posts)
        })
+        .catch(err => alert(err))
+
+   axios.get("https://dummyjson.com/users")
+        .then(res => {
+          console.log(res.data.users)
+          store.dispatch('setAllUsers', res.data.users)
+        })
+        .catch(err => console.log(err))
+   // axios.get("https://dummyjson.com/comments")
+   //      .then(res => {
+   //        console.log(res.data.comments)
+   //        store.dispatch('setAllComments', res.data.comments)
+   //      })
+   //      .catch(err => console.log(err))
  })
 
 </script>

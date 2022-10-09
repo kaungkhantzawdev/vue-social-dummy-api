@@ -6,6 +6,8 @@ import ProductView from "@/views/ProductView";
 import PostDetail from "@/views/PostDetail";
 import NotFoundView from "@/views/NotFoundView";
 import Logout from "@/views/Logout";
+import AddPostView from "@/views/AddPostView";
+import EditPost from "@/views/EditPost";
 
 function needAuth(to, from, next){
   if(!store.state.auth) next({name: 'login'})
@@ -29,18 +31,32 @@ const routes = [
     path: '/products',
     name: 'products',
     component: ProductView,
+    beforeEnter: [needAuth]
   },
   {
     path: '/logout',
     name: 'logout',
     component: Logout,
-
+    beforeEnter: [needAuth]
   },
   {
     path: '/post-detail/:id',
     name: 'post-detail',
     component: PostDetail,
-    props: true
+    props: true,
+    beforeEnter: [needAuth]
+  },
+  {
+    path: '/post-add',
+    name: 'post-add',
+    component: AddPostView,
+    props: true,
+  },
+  {
+    path: '/post-edit/:id',
+    name: 'post-edit',
+    component: EditPost,
+    props: true,
   },
   {
     path: '/about',
